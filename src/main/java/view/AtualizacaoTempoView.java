@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
+
+import javax.swing.JLabel;
 
 /**
  *
@@ -16,6 +13,22 @@ public class AtualizacaoTempoView extends javax.swing.JInternalFrame {
      */
     public AtualizacaoTempoView() {
         initComponents();
+    }
+
+    public JLabel getTxtDataAtualizacao() {
+        return txtDataAtualizacao;
+    }
+
+    public JLabel getTxtPressao() {
+        return txtPressao;
+    }
+
+    public JLabel getTxtTemperatura() {
+        return txtTemperatura;
+    }
+
+    public JLabel getTxtUmidade() {
+        return txtUmidade;
     }
 
     /**

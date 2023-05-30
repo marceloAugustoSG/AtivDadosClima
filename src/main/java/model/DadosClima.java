@@ -1,16 +1,24 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class DadosClima {
 
-    private LocalDateTime data;
+    private Date data;
     private double temperatura;
     private double umidade;
     private double pressao;
 
-    public DadosClima(LocalDateTime data, double temperatura, double umidade, double pressao) {
+    public DadosClima(Date data, double temperatura, double umidade, double pressao) {
         this.data = data;
+        this.temperatura = temperatura;
+        this.umidade = umidade;
+        this.pressao = pressao;
+    }
+
+    public DadosClima(double temperatura, double umidade, double pressao) {
+
         this.temperatura = temperatura;
         this.umidade = umidade;
         this.pressao = pressao;
@@ -19,11 +27,11 @@ public class DadosClima {
     public DadosClima() {
     }
 
-    public LocalDateTime getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

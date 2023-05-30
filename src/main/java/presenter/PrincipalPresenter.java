@@ -1,5 +1,6 @@
 package presenter;
 
+import Collections.DadosTempoCollection;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -13,24 +14,24 @@ public class PrincipalPresenter {
     private AtualizacaoTempoPresenter atualizacaoTempo;
     private RegistrosPresenter registrosPresenter;
     private MaximasMinimasPresenter maximasMinimasPresenter;
-
+    private final DadosTempoCollection dadosCollection;
     private ArrayList<JInternalFrame> janelasInternas;
 
     public PrincipalPresenter() {
         view = new PrincipalView();
         janelasInternas = new ArrayList<>();
-
+        dadosCollection = DadosTempoCollection.getInstance();
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         addInternalFrame();
         view.setVisible(true);
     }
 
     private void addInternalFrame() {
-        dadosTempo = DadosTempoPresenter.getInstance();
+        dadosTempo = DadosTempoPresenter.getInstance(dadosCollection);
         dadosMedios = DadosMediosPresenter.getInstance();
-        atualizacaoTempo = AtualizacaoTempoPresenter.getInstance();
+        atualizacaoTempo = AtualizacaoTempoPresenter.getInstance(dadosCollection);
         registrosPresenter = RegistrosPresenter.getInstance();
-        maximasMinimasPresenter = MaximasMinimasPresenter.getInstance();;
+        maximasMinimasPresenter = MaximasMinimasPresenter.getInstance();
 
         janelasInternas.add(dadosTempo.getView());
         janelasInternas.add(dadosMedios.getView());

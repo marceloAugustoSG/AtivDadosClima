@@ -1,10 +1,12 @@
 package presenter;
 
 import Collections.DadosTempoCollection;
+import interfaces.IObserver;
+import java.util.List;
 import model.DadosClima;
 import view.AtualizacaoTempoView;
 
-public class AtualizacaoTempoPresenter {
+public class AtualizacaoTempoPresenter implements IObserver {
 
     private static AtualizacaoTempoPresenter instance = null;
     private final DadosTempoCollection dados;
@@ -16,7 +18,7 @@ public class AtualizacaoTempoPresenter {
         view = new AtualizacaoTempoView();
         view.setSize(350, 300);
         view.setLocation(10, 330);
-        carregarJanela();
+
         view.setVisible(true);
     }
 
@@ -29,29 +31,31 @@ public class AtualizacaoTempoPresenter {
         return instance;
     }
 
-    private void carregarJanela() {
+    private void resetWindow() {
 
-        if (dados.isEmpty()) {
-            view.getTxtTemperatura().setText("TEMPERATURA");
-            view.getTxtUmidade().setText("UMIDADE");
-            view.getTxtPressao().setText("PRESSÃO");
-            view.getTxtDataAtualizacao().setText("DD/MM/AAAA");
+        view.getTxtDataAtualizacao().setText("DD/MM/AAAA");
+        view.getTxtTemperatura().setText("TEMPERATURA");
+        view.getTxtUmidade().setText("HUMIDADE");
+        view.getTxtPressao().setText("PRESSÃO");
 
-        } else {
-
-            DadosClima ultimoDado = dados.getLast();
-            String temperatura = String.valueOf(ultimoDado.getTemperatura());
-            String umidade = String.valueOf(ultimoDado.getUmidade());
-            String pressao = String.valueOf(ultimoDado.getPressao());
-
-            view.getTxtTemperatura().setText(temperatura);
-            view.getTxtUmidade().setText(umidade);
-            view.getTxtPressao().setText(pressao);
-        }
     }
 
     public AtualizacaoTempoView getView() {
         return view;
+    }
+
+    @Override
+    public void update(List<DadosClima> dados) {
+        if (dados.isEmpty()) {
+            resetWindow();
+        } else {
+            DadosClima ultimo = dados.get(dados.size() - 1);
+
+//            view.getLbDate().setText(DateUtil.dateToString(last.getRegistrationDate().getDate()));
+            view.getTxtTemperatura().setText(ultimo.getTemperatura() + "º C");
+            view.getTxtUmidade().setText(ultimo.getUmidade() + "%");
+            view.getTxtPressao().setText(ultimo.getPressao() + " mb");
+        }
     }
 
 }

@@ -22,14 +22,23 @@ public class PrincipalPresenter {
         janelasInternas = new ArrayList<>();
         dadosCollection = DadosTempoCollection.getInstance();
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        registrarObservers();
         addInternalFrame();
         view.setVisible(true);
+    }
+
+    private void registrarObservers() {
+
+        AtualizacaoTempoPresenter ob1 = AtualizacaoTempoPresenter.getInstance(dadosCollection);
+
+        dadosCollection.registerObserver(ob1);
     }
 
     private void addInternalFrame() {
         dadosTempo = DadosTempoPresenter.getInstance(dadosCollection);
         dadosMedios = DadosMediosPresenter.getInstance();
-        atualizacaoTempo = AtualizacaoTempoPresenter.getInstance(dadosCollection);
+        AtualizacaoTempoPresenter atualizacaoTempo = AtualizacaoTempoPresenter.getInstance(dadosCollection);
+
         registrosPresenter = RegistrosPresenter.getInstance();
         maximasMinimasPresenter = MaximasMinimasPresenter.getInstance();
 
@@ -41,7 +50,6 @@ public class PrincipalPresenter {
 
         janelasInternas.forEach(janela -> {
             view.add(janela);
-            janela.setVisible(true);
 
         });
 
